@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int		main(void)
+{
+	char	*str;
+	int		fd1, fd2, fd3, sifd;
+
+	fd1 = open("test/test1.txt", O_RDONLY);
+	fd2 = open("test/test2.txt", O_RDONLY);
+	fd3 = open("test/test3.txt", O_RDONLY);
+	sifd = 0;
+	if (fd1 == -1 || fd2 == -1 || fd3 == -1)
+		return (-1);
+	get_next_line(fd1, &str);
+	printf("Str1T2 := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd1, &str);
+	printf("Str2T2 := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd2, &str);
+	printf("Str1T3 := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd1, &str);
+	printf("Str3T2 := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd3, &str);
+	printf("Str1TL := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd3, &str);
+	printf("Str2TL := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd3, &str);
+	printf("Str3TL := %s\n", str);
+	ft_strdel(&str);
+	get_next_line(fd3, &str);
+	printf("StrLTL := %s\n", str);
+	ft_strdel(&str);
+
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	return (0);
+}
