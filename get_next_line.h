@@ -6,7 +6,7 @@
 /*   By: otahirov <otahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 13:31:15 by otahirov          #+#    #+#             */
-/*   Updated: 2018/10/01 15:05:51 by otahirov         ###   ########.fr       */
+/*   Updated: 2018/10/01 20:50:13 by otahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define R3 (list[0])
 # define AA1 ft_strlen(str_array[2])
 # define AA2 ft_strlen(str_array[0])
+# define AA3 ft_strlen(list->content)
+# define READ_M(arr) { free(arr); arr = NULL; return (NULL); }
+# define MV_FD(x) while (x->fd != fd && x->next) x = x->next
+# define MV_NL(s) while (*s != '\n' && *s) s++
 
 # include "libft/includes/libft.h"
 # include <libc.h>

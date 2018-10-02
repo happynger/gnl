@@ -6,7 +6,7 @@
 /*   By: otahirov <otahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 16:02:50 by otahirov          #+#    #+#             */
-/*   Updated: 2018/10/01 13:23:17 by otahirov         ###   ########.fr       */
+/*   Updated: 2018/10/01 20:51:54 by otahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # endif
 
 # define SWAP(a,b) a^=b, b^=a, a^=b
+# define CHECK_NULL_GNL(x) if ((x) == NULL) return (-1)
+# define CHECK_NULL(x) if ((x) == NULL) return (NULL)
 
 typedef int				t_bool;
 
@@ -37,7 +39,7 @@ typedef struct			s_list
 
 void					*ft_memset(void *b, int c, size_t len);
 void					*ft_mempcpy(void *dst, const void *src, size_t n);
-void					*ft_realloc(void **data,
+void					*ft_realloc(void *data,
 						size_t data_size, size_t new_size);
 char					*ft_strappend(char *dst, const char *src,
 						size_t dst_len, size_t src_len);

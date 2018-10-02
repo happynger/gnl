@@ -6,7 +6,7 @@
 /*   By: otahirov <otahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 13:31:03 by otahirov          #+#    #+#             */
-/*   Updated: 2018/10/01 16:13:41 by otahirov         ###   ########.fr       */
+/*   Updated: 2018/10/01 20:59:27 by otahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ char	**ft_strsplit_nl(char *str, int bytes_read, t_list *list, const int fd)
 	char	*s;
 	int		i[2];
 
-	arr = (char **)malloc(3 * sizeof(*arr));
-	while (list->fd != fd && list->next)
-		list = list->next;
+	CHECK_NULL(arr = (char **)malloc(3 * sizeof(*arr)));
+	MV_FD(list);
 	if (list->content)
-		list->content = ft_strappend(list->content, str,
-			ft_strlen(list->content), bytes_read);
+		list->content = ft_strappend(list->content, str, AA3, bytes_read);
 	else
 		list->content = ft_strdup(str);
 	s = list->content;
-	while (*s != '\n' && *s)
-		s++;
+	MV_NL(s);
 	if ((!*s && bytes_read == BUFF_SIZE) || bytes_read == -1)
+	{
+		free(arr);
 		return (NULL);
+	}
 	i[0] = s - list->content;
 	i[1] = ft_strlen(s + 1);
 	arr[0] = ft_strnew(i[0]);
@@ -85,7 +85,7 @@ int		ft_copy(char ***line, char **arr, t_list *list)
 	int		i;
 
 	i = 0;
-	s = ft_strnew(ft_strlen(arr[2]));
+	CHECK_NULL_GNL(s = ft_strnew(ft_strlen(arr[2])));
 	while (arr[2][i] && arr[2][i] != '\n')
 	{
 		s[i] = arr[2][i];
@@ -112,14 +112,11 @@ int		get_next_line(const int fd, char **line)
 	if (ERR)
 		return (-1);
 	initiate_list(fd, &list[0]);
-	str_read = ft_strnew(BUFF_SIZE);
+	CHECK_NULL_GNL(str_read = ft_strnew(BUFF_SIZE));
 	while ((str_array = ft_strsplit_nl(str_read,
 		bytes_read = read(fd, str_read, BUFF_SIZE), list[0], fd)) == NULL)
-		{
-			free(str_array);
-			if (bytes_read == -1) 
-				return (ft_free(str_array, -1, str_read));
-		}
+		if (bytes_read == -1)
+			return (ft_free(str_array, -1, str_read));
 	list[1] = list[0];
 	while (list[1]->fd != fd && list[1]->next)
 		list[1] = list[1]->next;
@@ -128,39 +125,4 @@ int		get_next_line(const int fd, char **line)
 	if (ft_strcmp(str_array[2], str_array[0]) != 0)
 		str_array[2] = ft_strappend(str_array[2], str_array[0], AA1, AA2);
 	return (ft_free(str_array, ft_copy(&line, str_array, list[1]), str_read));
-}
-
-int main()
-{
-	char *line;
-	int fd;
-	int fd2;
-	int fd3;
-	int	diff_file_size;
-    
-	for (int i = 0; i < 100; i++)
-    {
-		system("mkdir -p sandbox");
-		system("openssl rand -out sandbox/large_file.txt -base64 $((50 * 1000 * 3/4)) 2> /dev/null");
-
-		fd = open("sandbox/large_file.txt", O_RDONLY);
-		fd2 = open("sandbox/large_file.txt.mine", O_CREAT | O_RDWR | O_TRUNC, 0755);
-
-		while (get_next_line(fd, &line) == 1)
-		{
-			write(fd2, line, strlen(line));
-			write(fd2, "\n", 1);
-			free (line);
-		}
-		close(fd);
-		close(fd2);
-
-		system("diff sandbox/large_file.txt sandbox/large_file.txt.mine > sandbox/large_file.diff");
-		fd3 = open("sandbox/large_file.diff", O_RDONLY);
-		diff_file_size = read(fd3, NULL, 10);
-		close(fd3);
-		
-		if (diff_file_size == 0)
-			printf("OK.");
-	}
 }
