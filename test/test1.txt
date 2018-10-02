@@ -1,3 +1,0 @@
-This is the first line of the second test for get_next_line
-This is the second line of the second test for get_next_line
-This is the third line of the second test for get_next_line

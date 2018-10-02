@@ -1,4 +1,0 @@
-This is the first line of the last test for get_next_line
-This is the second line of the last test for get_next_line
-
-This is the last line of the last test for get_next_line
