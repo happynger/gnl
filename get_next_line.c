@@ -6,7 +6,7 @@
 /*   By: otahirov <otahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 13:31:03 by otahirov          #+#    #+#             */
-/*   Updated: 2018/10/01 20:59:27 by otahirov         ###   ########.fr       */
+/*   Updated: 2018/10/09 15:04:32 by otahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		ft_copy(char ***line, char **arr, t_list *list)
 		i++;
 	}
 	**line = s;
-	if (arr[2][i] == '\0' && list->br == 0)
+	if (arr[2][i] == '\0' && list->br == 0 && !ft_strcmp(list->content, ""))
 		return (0);
 	else
 	{

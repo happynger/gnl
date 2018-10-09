@@ -6,7 +6,7 @@
 /*   By: otahirov <otahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 13:31:15 by otahirov          #+#    #+#             */
-/*   Updated: 2018/10/01 20:50:13 by otahirov         ###   ########.fr       */
+/*   Updated: 2018/10/02 15:36:10 by otahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define READ_M(arr) { free(arr); arr = NULL; return (NULL); }
 # define MV_FD(x) while (x->fd != fd && x->next) x = x->next
 # define MV_NL(s) while (*s != '\n' && *s) s++
+# define CHECK_EX(s) if (*s) ft_strncpy(arr[1], ++s, i[1])
 
 # include "libft/includes/libft.h"
 # include <libc.h>
